@@ -1,0 +1,126 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 220 23% 96%;
+    --foreground: 226 24% 12%;
+    --card: 0 0% 100%;
+    --card-foreground: 226 24% 12%;
+    --muted: 220 16% 93%;
+    --muted-foreground: 224 10% 44%;
+    --border: 220 14% 87%;
+    --input: 220 13% 84%;
+    --primary: 221 72% 42%;
+    --primary-foreground: 210 40% 98%;
+    --accent: 220 15% 92%;
+    --accent-foreground: 226 24% 14%;
+    --success: 152 64% 30%;
+    --success-bg: 150 55% 94%;
+    --warning: 35 92% 36%;
+    --warning-bg: 45 96% 92%;
+    --danger: 0 68% 44%;
+    --danger-bg: 0 80% 96%;
+    --info: 205 80% 36%;
+    --info-bg: 206 88% 94%;
+    --ring: 221 72% 52%;
+    --sidebar: 0 0% 100%;
+    --sidebar-foreground: 226 20% 24%;
+    --radius: 6px;
+  }
+
+  .dark {
+    --background: 226 20% 8%;
+    --foreground: 220 18% 92%;
+    --card: 226 18% 11%;
+    --card-foreground: 220 18% 92%;
+    --muted: 226 14% 16%;
+    --muted-foreground: 222 10% 62%;
+    --border: 226 12% 19%;
+    --input: 226 12% 24%;
+    --primary: 214 90% 60%;
+    --primary-foreground: 220 30% 10%;
+    --accent: 226 14% 17%;
+    --accent-foreground: 220 18% 92%;
+    --success: 152 55% 52%;
+    --success-bg: 152 40% 14%;
+    --warning: 38 90% 55%;
+    --warning-bg: 38 50% 14%;
+    --danger: 0 70% 58%;
+    --danger-bg: 0 40% 16%;
+    --info: 203 85% 58%;
+    --info-bg: 205 45% 15%;
+    --ring: 214 90% 60%;
+    --sidebar: 226 19% 10%;
+    --sidebar-foreground: 220 14% 80%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    font-size: 15px;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "tnum" 1, "cv05" 1;
+  }
+
+  ::selection {
+    @apply bg-primary/20;
+  }
+}
+
+@layer utilities {
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--border)) transparent;
+  }
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: hsl(var(--border));
+    border-radius: 4px;
+  }
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* Dense enterprise data tables */
+table.data-table th {
+  @apply text-left text-2xs font-semibold uppercase tracking-wide text-muted-foreground;
+}
+table.data-table td {
+  @apply align-middle;
+}
+
+/* Subtle, functional transitions only */
+button, a, input, select, textarea {
+  transition: background-color 120ms ease, border-color 120ms ease, color 120ms ease, box-shadow 120ms ease;
+}
+
+/* Print — used by invoice/quote/report print views */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  .print-area {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    padding: 24px;
+    background: white;
+    color: black;
+    box-shadow: none !important;
+    border: none !important;
+  }
+  body {
+    background: white !important;
+  }
+}
