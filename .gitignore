@@ -1,0 +1,33 @@
+# dependencies
+node_modules/
+
+# next.js
+.next/
+out/
+next-env.d.ts
+
+# production
+build/
+
+# environment
+.env
+.env.local
+.env.production
+
+# database (local demo database — run `npm run db:reset` to recreate + seed)
+prisma/dev.db
+*.db
+*.db-journal
+*.db-shm
+*.db-wal
+
+# file storage (uploaded documents)
+storage/
+
+# misc
+.DS_Store
+*.pem
+npm-debug.log*
+*.tsbuildinfo
+.idea/
+.vscode/
