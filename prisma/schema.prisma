@@ -26,7 +26,11 @@ generator client {
 
 datasource db {
   provider = "sqlite"
-  url      = env("DATABASE_URL")
+  // Hardcoded so every `prisma` CLI command (generate, studio, migrate …)
+  // works on a fresh clone without creating an .env file first.
+  // SQLite paths resolve relative to this schema file → prisma/dev.db
+  // (same file the runtime adapter opens via src/lib/db.ts).
+  url      = "file:./dev.db"
 }
 
 // ============================== Tenancy & Identity ==============================

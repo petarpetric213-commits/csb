@@ -5,19 +5,19 @@
   "description": "NEXORA ERP — enterprise business management platform (original product inspired by modern German ERP concepts)",
   "scripts": {
     "dev": "next dev -H 0.0.0.0 -p 3000",
+    "predev": "tsx scripts/ensure-db.ts",
     "build": "next build",
     "start": "next start -H 0.0.0.0 -p 3000",
+    "prestart": "tsx scripts/ensure-db.ts",
     "typecheck": "tsc --noEmit",
-    "db:generate": "prisma generate",
-    "db:push": "prisma db push",
+    "db:setup": "tsx scripts/ensure-db.ts",
+    "db:push": "tsx scripts/db-push.ts",
     "db:seed": "tsx prisma/seed.ts",
-    "db:reset": "prisma db push --force-reset && tsx prisma/seed.ts",
+    "db:reset": "tsx scripts/db-reset.ts",
+    "db:generate": "prisma generate",
     "db:studio": "prisma studio",
     "test": "vitest run",
     "test:watch": "vitest"
-  },
-  "prisma": {
-    "seed": "tsx prisma/seed.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",
