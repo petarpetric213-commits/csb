@@ -4,7 +4,7 @@ import { logAudit } from "@/server/audit";
 import { ApiError } from "@/server/errors";
 import { z } from "zod";
 
-export const PATCH = route({ permission: "categories.update" }, async ({ params, body, session }) => {
+export const PATCH = route({ permission: "categories.manage" }, async ({ params, body, session }) => {
   const existing = await prisma.productCategory.findFirst({ where: { id: params.id, companyId: session.companyId } });
   if (!existing) throw ApiError.notFound("Category not found.");
   const parsed = z.object({ name: z.string().min(2).max(80), description: z.string().max(400).nullable().optional() }).parse(body);
@@ -21,7 +21,7 @@ export const PATCH = route({ permission: "categories.update" }, async ({ params,
   return ok(category);
 });
 
-export const DELETE = route({ permission: "categories.delete" }, async ({ params, session }) => {
+export const DELETE = route({ permission: "categories.manage" }, async ({ params, session }) => {
   const existing = await prisma.productCategory.findFirst({
     where: { id: params.id, companyId: session.companyId },
     include: { _count: { select: { products: { where: { deletedAt: null } } } } },

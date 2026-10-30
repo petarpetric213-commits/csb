@@ -30,7 +30,7 @@ const patchSchema = z.object({
   notes: z.string().max(2000).nullable().optional(),
 });
 
-export const PATCH = route({ permission: "employees.update", schema: patchSchema }, async ({ params, body, session }) => {
+export const PATCH = route({ permission: "employees.manage" as string, schema: patchSchema }, async ({ params, body, session }) => {
   const existing = await prisma.employee.findFirst({ where: { id: params.id, companyId: session.companyId, deletedAt: null } });
   if (!existing) throw ApiError.notFound("Employee not found.");
   const { endDate, managerId, ...rest } = body;

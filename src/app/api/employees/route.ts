@@ -77,7 +77,7 @@ const createSchema = z.object({
   employmentStatus: z.enum(["ACTIVE", "PROBATION", "ON_LEAVE", "TERMINATED"]).default("ACTIVE"),
 });
 
-export const POST = route({ permission: "employees.create", schema: createSchema }, async ({ body, session }) => {
+export const POST = route({ permission: "employees.manage", schema: createSchema }, async ({ body, session }) => {
   const employeeNumber = await nextNumber(prisma, session.companyId, "MA");
   const employee = await prisma.employee.create({
     data: {

@@ -24,7 +24,7 @@ type Row = {
   itemCount: number; receiptCount: number;
 };
 
-export function PoCreateDialog({ open, onClose }: { open: boolean; onClose: () => void }) {
+function PoCreateDialog({ open, onClose }: { open: boolean; onClose: () => void }) {
   const t = useI18n().t;
   const qc = useQueryClient();
   const [supplierId, setSupplierId] = useState("");
