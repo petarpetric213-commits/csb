@@ -97,6 +97,7 @@ export async function apiSend<T>(
 
 export const apiPost = <T>(url: string, body?: unknown) => apiSend<T>(url, "POST", body);
 export const apiPatch = <T>(url: string, body?: unknown) => apiSend<T>(url, "PATCH", body);
+export const apiPut = <T>(url: string, body?: unknown) => apiSend<T>(url, "PUT", body);
 export const apiDelete = <T>(url: string) => apiSend<T>(url, "DELETE");
 
 /** Build a query string, skipping empty values. */

@@ -4,7 +4,7 @@ import { logAudit } from "@/server/audit";
 import { ApiError } from "@/server/errors";
 import { z } from "zod";
 
-export const PATCH = route({ permission: "workcenters.update" }, async ({ params, body, session }) => {
+export const PATCH = route({ permission: "workcenters.manage" as string }, async ({ params, body, session }) => {
   const existing = await prisma.workCenter.findFirst({ where: { id: params.id, companyId: session.companyId } });
   if (!existing) throw ApiError.notFound("Work center not found.");
   const parsed = z

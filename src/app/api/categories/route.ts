@@ -32,7 +32,7 @@ const createSchema = z.object({
   description: z.string().max(400).optional().or(z.literal("")),
 });
 
-export const POST = route({ permission: "categories.create", schema: createSchema }, async ({ body, session }) => {
+export const POST = route({ permission: "categories.manage", schema: createSchema }, async ({ body, session }) => {
   const dupe = await prisma.productCategory.findFirst({ where: { companyId: session.companyId, name: body.name } });
   if (dupe) throw ApiError.conflict(`Category "${body.name}" already exists.`);
   const category = await prisma.productCategory.create({

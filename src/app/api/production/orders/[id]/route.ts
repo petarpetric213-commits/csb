@@ -48,7 +48,7 @@ const actionSchema = z.object({
   reason: z.string().max(400).optional(),
 });
 
-export const POST = route({ permission: "production.update", schema: actionSchema }, async ({ params, body, session }) => {
+export const POST = route({ permission: "production.create", schema: actionSchema, anyOf: ["production.release", "production.complete", "production.cancel", "production.update"] as any }, async ({ params, body, session }) => {
   const result = await prisma.$transaction((tx) =>
     productionOrderAction(tx, {
       productionOrderId: params.id,

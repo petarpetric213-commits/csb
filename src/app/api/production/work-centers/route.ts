@@ -39,7 +39,7 @@ const createSchema = z.object({
   hourlyCost: z.coerce.number().min(0).default(0),
 });
 
-export const POST = route({ permission: "workcenters.create", schema: createSchema }, async ({ body, session }) => {
+export const POST = route({ permission: "workcenters.manage", schema: createSchema }, async ({ body, session }) => {
   const dupe = await prisma.workCenter.findFirst({ where: { companyId: session.companyId, code: body.code } });
   if (dupe) throw ApiError.conflict(`Work center ${body.code} already exists.`);
   const wc = await prisma.workCenter.create({

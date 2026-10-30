@@ -47,7 +47,7 @@ const createSchema = z.object({
   isDefault: z.coerce.boolean().default(false),
 });
 
-export const POST = route({ permission: "warehouses.create", schema: createSchema }, async ({ body, session }) => {
+export const POST = route({ permission: "warehouses.manage", schema: createSchema }, async ({ body, session }) => {
   const dupe = await prisma.warehouse.findFirst({ where: { companyId: session.companyId, code: body.code } });
   if (dupe) throw ApiError.conflict(`Warehouse code ${body.code} already exists.`);
   if (body.isDefault) {

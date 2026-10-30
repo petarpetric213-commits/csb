@@ -33,7 +33,7 @@ const patchSchema = z.object({
   isDefault: z.coerce.boolean().optional(),
 });
 
-export const PATCH = route({ permission: "warehouses.update", schema: patchSchema }, async ({ params, body, session }) => {
+export const PATCH = route({ permission: "warehouses.manage" as string, schema: patchSchema }, async ({ params, body, session }) => {
   const existing = await prisma.warehouse.findFirst({ where: { id: params.id, companyId: session.companyId } });
   if (!existing) throw ApiError.notFound("Warehouse not found.");
   if (body.isDefault) {
@@ -62,7 +62,7 @@ const locationSchema = z.object({
 });
 
 /** Add a storage location to the warehouse. */
-export const PUT = route({ permission: "warehouses.update", schema: locationSchema }, async ({ params, body, session }) => {
+export const PUT = route({ permission: "warehouses.manage" as string, schema: locationSchema }, async ({ params, body, session }) => {
   const warehouse = await prisma.warehouse.findFirst({ where: { id: params.id, companyId: session.companyId } });
   if (!warehouse) throw ApiError.notFound("Warehouse not found.");
   const dupe = await prisma.warehouseLocation.findFirst({ where: { warehouseId: warehouse.id, code: body.code } });
